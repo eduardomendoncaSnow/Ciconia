@@ -1,17 +1,23 @@
+#
+# Be sure to run `pod lib lint Ciconia.podspec' to ensure this is a
+# valid spec before submitting.
+#
+# Any lines starting with a # are optional, but their use is encouraged
+# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
+#
+
 Pod::Spec.new do |s|
-
-  s.name            = "Ciconia"
-  s.version         = "0.1.1"
-  s.summary         = "Ciconia"
-  s.description     = "On-demand migrations structure provider, based on NSOperation and NSOperationQueue"
-  s.license         = "Apache v2"
-  s.author          = { "Pietro Caselani" => "pietro.caselani@involves.com.br" }
-  s.platform        = :ios
-  s.source          = { :git => "https://github.com/CopyIsRight/Ciconia", :tag => "#{s.version}" }
-  s.source_files    = "Classes/**/*.{h,m}"
-  s.requires_arc    = true
-  s.homepage        = "https://github.com/CopyIsRight/Ciconia"
+  s.name             = "Ciconia"
+  s.version          = "0.1.0"
+  s.summary          = "Migrations structure provider."
+  s.description      = "On-demand migrations structure provider, based on NSOperation and NSOperationQueue"
+  s.homepage         = "https://github.com/CopyIsRight/Ciconia"
+  s.license          = 'MIT'
+  s.author           = { "Pietro Caselani" => "pc1992@gmail.com", "Felipe Lobo" => "frlwolf@gmail.com" }
+  s.source           = { :git => "https://github.com/CopyIsRight/Ciconia.git", :tag => s.version.to_s }
+  s.platform     = :ios, '7.0'
+  s.requires_arc = true
+  s.source_files = 'Pod/Classes/**/*'
   
-  s.dependency 'SQLAid', '0.1.0'
-
+  s.dependency 'SQLAid', '~> 0.1.0'
 end
