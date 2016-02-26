@@ -20,9 +20,10 @@ it, simply add the following line to your Podfile:
 pod "Ciconia"
 ```
 
-## Author
+## Authors
 
-Pietro Caselani, pietro.caselani@involves.com.br
+* Pietro Caselani, pc1992@gmail.com
+* Felipe Lobo, frlwolf@gmail.com
 
 ## License
 
