@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Ciconia"
-  s.version          = "0.1.0"
+  s.version          = "0.1.1"
   s.summary          = "Migrations structure provider."
   s.description      = "On-demand migrations structure provider, based on NSOperation and NSOperationQueue"
   s.homepage         = "https://github.com/CopyIsRight/Ciconia"
@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'Pod/Classes/**/*'
   
-  s.dependency 'SQLAid', '~> 0.1.0'
+  s.dependency 'SQLAid', '~> 0.1'
 end
