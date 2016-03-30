@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 
-target 'Ciconia_Tests', :exclusive => true do
+target 'Ciconia_Tests' do
   pod 'Ciconia', :path => '../'
 
   pod 'Kiwi'
