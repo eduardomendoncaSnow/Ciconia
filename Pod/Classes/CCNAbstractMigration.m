@@ -19,13 +19,21 @@
 
 #pragma mark - Protected
 
-- (void)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)dictionary
+- (void)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)columns
+{
+	[self createTable:tableName withColumnsFromDictionary:columns constraints:nil];
+}
+
+- (void)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)columns constraints:(NSDictionary *)constraints
 {
 	NSMutableString *createTableString = [@"CREATE TABLE " mutableCopy];
 	[createTableString appendFormat:@"%@ (", tableName];
 
-	for (NSString *key in dictionary.keyEnumerator)
-		[createTableString appendFormat:@"%@ %@, ", key, dictionary[key]];
+	for (NSString *key in columns.keyEnumerator)
+		[createTableString appendFormat:@"%@ %@, ", key, columns[key]];
+
+	for (NSString *key in constraints.keyEnumerator)
+		[createTableString appendFormat:@"%@ %@, ", key, constraints[key]];
 
 	[createTableString replaceCharactersInRange:NSMakeRange(createTableString.length - 2, 2) withString:@")"];
 
