@@ -14,7 +14,6 @@
 
 @interface CCNMigrationQueue ()
 
-@property (assign, nonatomic) NSUInteger executionsCount;
 @property (strong, nonatomic) NSMutableDictionary<NSNumber *, Class> *migrations;
 
 @end
@@ -47,29 +46,20 @@
 
 - (BOOL)checkForExecutions:(CIRDatabase *)database
 {
-	[self calculateExecutionsCountForDatabase:database];
-
-	return _executionsCount > 0;
+	return [self executionsCountForDatabase:database] > 0;
 }
 
 - (NSUInteger)executionsCountForDatabase:(CIRDatabase *)database
 {
-	[self calculateExecutionsCountForDatabase:database];
-
-	return _executionsCount;
-}
-
-- (void)calculateExecutionsCountForDatabase:(CIRDatabase *)database
-{
-	NSUInteger count = 0;
-
 	[database executeUpdate:@"CREATE TABLE IF NOT EXISTS 'schema_migrations' ('version' INTEGER PRIMARY KEY)"];
+
+	NSUInteger count = 0;
 
 	CIRResultSet *resultSet = [database executeQuery:[NSString stringWithFormat:@"SELECT COUNT(version) FROM schema_migrations"]];
 	if ([resultSet next])
 		count = (NSUInteger) [resultSet intAtIndex:0];
 
-	_executionsCount = _migrations.count - count;
+	return  _migrations.count - count;
 }
 
 - (void)execute:(CIRDatabase *)database
@@ -79,11 +69,13 @@
 
 - (void)execute:(CIRDatabase *)database progress:(void (^)(CCNAbstractMigration *, int, int))progress;
 {
+	NSUInteger executionsCount = [self executionsCountForDatabase:database];
+
 	[database executeUpdate:@"BEGIN"];
 
 	CIRResultSet *resultSet = [database executeQuery:@"SELECT version FROM schema_migrations"];
 
-	int index = 0;
+	NSUInteger index = 0;
 
 	while ([resultSet next])
 		[_migrations removeObjectForKey:resultSet[0]];
@@ -96,13 +88,13 @@
 			return [obj1 compare:obj2];
 		}])
 		{
-			CCNAbstractMigration *migration = [[_migrations[key] alloc] init];
+			CCNAbstractMigration *migration = (CCNAbstractMigration *) [[_migrations[key] alloc] init];
 			migration.database = database;
 
 			[migration run];
 
 			if (progress)
-				progress(migration, ++index, _executionsCount);
+				progress(migration, ++index, executionsCount);
 
 			[statement bindLongLong:[key longLongValue] atIndex:1];
 
@@ -113,8 +105,6 @@
 		}
 
 		[statement close];
-
-		_executionsCount = 0;
 	}
 
 	[database executeUpdate:@"COMMIT"];
