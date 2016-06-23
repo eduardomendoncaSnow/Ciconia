@@ -15,7 +15,14 @@
 
 + (instancetype)sharedQueue;
 
-- (void)execute:(CIRDatabase*)database;
+- (BOOL)checkForExecutions:(CIRDatabase *)database;
+
+- (NSUInteger)executionsCountForDatabase:(CIRDatabase *)database;
+
+- (void)execute:(CIRDatabase *)database;
+
+- (void)execute:(CIRDatabase *)database progress:(void (^)(CCNAbstractMigration *, int, int))progress;
+
 - (void)registerMigrationClass:(Class)migrationClass withVersion:(long long)version;
 
 @end
