@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Ciconia"
-  s.version          = "0.1.3"
+  s.version          = "0.2.0"
   s.summary          = "Migrations structure provider."
   s.description      = "On-demand migrations structure provider, based on NSOperation and NSOperationQueue"
   s.homepage         = "https://github.com/CopyIsRight/Ciconia"
