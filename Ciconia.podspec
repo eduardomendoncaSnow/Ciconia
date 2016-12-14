@@ -8,14 +8,14 @@
 
 Pod::Spec.new do |s|
   s.name             = "Ciconia"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "Migrations structure provider."
   s.description      = "On-demand migrations structure provider, based on NSOperation and NSOperationQueue"
   s.homepage         = "https://github.com/CopyIsRight/Ciconia"
   s.license          = 'MIT'
   s.author           = { "Pietro Caselani" => "pc1992@gmail.com", "Felipe Lobo" => "frlwolf@gmail.com" }
   s.source           = { :git => "https://github.com/CopyIsRight/Ciconia.git", :tag => s.version.to_s }
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
   s.source_files = 'Pod/Classes/**/*'
   

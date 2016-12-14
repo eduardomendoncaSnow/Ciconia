@@ -9,7 +9,9 @@
 
 @interface CCNAbstractMigration ()
 
-- (void)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)dictionary;
-- (void)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)columns constraints:(NSDictionary *)constraints;
+- (NSString *)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)dictionary;
+- (NSString *)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)columns constraints:(NSDictionary *)constraints;
+- (NSString *)addColumn:(NSString *)name ofType:(NSString *)type toTable:(NSString *)table;
+- (NSString *)executeSQL:(NSString *)sqlString;
 
 @end
