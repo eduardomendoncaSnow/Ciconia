@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F6421DF1E0165460087140D /* AbstractMigrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6421DE1E0165460087140D /* AbstractMigrationTests.m */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
-		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		8BCEDD36A7D34DD14B91E802 /* Pods_Ciconia_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E2726783BAFBA467573385 /* Pods_Ciconia_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -19,6 +19,7 @@
 		19E2726783BAFBA467573385 /* Pods_Ciconia_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ciconia_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DA0F93E376E91F6ED5C6CF4 /* Pods-Ciconia_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ciconia_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ciconia_Tests/Pods-Ciconia_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		2F459740498ED6917D9C4EA3 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		4F6421DE1E0165460087140D /* AbstractMigrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractMigrationTests.m; sourceTree = "<group>"; };
 		5AD66423CFCE55E941F8B90B /* Ciconia.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Ciconia.podspec; path = ../Ciconia.podspec; sourceTree = "<group>"; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -27,7 +28,6 @@
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		B7F790F13AA3E12FCD89B9C5 /* Pods-Ciconia_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ciconia_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ciconia_Tests/Pods-Ciconia_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F54095DE27F79E9EC0D60872 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -82,8 +82,8 @@
 		6003F5B5195388D20070C39A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6003F5BB195388D20070C39A /* Tests.m */,
 				6003F5B6195388D20070C39A /* Supporting Files */,
+				4F6421DE1E0165460087140D /* AbstractMigrationTests.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -124,12 +124,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "Ciconia_Tests" */;
 			buildPhases = (
-				046D941C38FFF04E8904840A /* Check Pods Manifest.lock */,
+				046D941C38FFF04E8904840A /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				F4F6DDEC5CE890633E45D60E /* Embed Pods Frameworks */,
-				7E0414B0F3C6889ED153A416 /* Copy Pods Resources */,
+				F4F6DDEC5CE890633E45D60E /* [CP] Embed Pods Frameworks */,
+				7E0414B0F3C6889ED153A416 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,6 +149,11 @@
 				CLASSPREFIX = CCN;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Pietro Caselani";
+				TargetAttributes = {
+					6003F5AD195388D20070C39A = {
+						DevelopmentTeam = B5RPM7SE3L;
+					};
+				};
 			};
 			buildConfigurationList = 6003F585195388D10070C39A /* Build configuration list for PBXProject "Ciconia" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -180,29 +185,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		046D941C38FFF04E8904840A /* Check Pods Manifest.lock */ = {
+		046D941C38FFF04E8904840A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		7E0414B0F3C6889ED153A416 /* Copy Pods Resources */ = {
+		7E0414B0F3C6889ED153A416 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,14 +215,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ciconia_Tests/Pods-Ciconia_Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F4F6DDEC5CE890633E45D60E /* Embed Pods Frameworks */ = {
+		F4F6DDEC5CE890633E45D60E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,7 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5BC195388D20070C39A /* Tests.m in Sources */,
+				4F6421DF1E0165460087140D /* AbstractMigrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -316,7 +321,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -327,6 +332,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B7F790F13AA3E12FCD89B9C5 /* Pods-Ciconia_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = B5RPM7SE3L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -349,6 +355,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DA0F93E376E91F6ED5C6CF4 /* Pods-Ciconia_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = B5RPM7SE3L;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
