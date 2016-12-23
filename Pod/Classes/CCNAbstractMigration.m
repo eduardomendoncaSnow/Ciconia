@@ -40,6 +40,11 @@
 	return [self executeSQL:createTableString];
 }
 
+- (NSString *)dropTable:(NSString *)tableName
+{
+	return [self executeSQL:[@"DROP TABLE IF EXISTS " stringByAppendingString:tableName]];
+}
+
 - (NSString *)addColumn:(NSString *)name ofType:(NSString *)type toTable:(NSString *)table
 {
 	NSMutableString *alterTableString = [@"ALTER TABLE " mutableCopy];

@@ -10,6 +10,7 @@
 
 #import <Ciconia/CCNAbstractMigration.h>
 #import <Ciconia/CCNAbstractMigration_Protected.h>
+#import <Kiwi/KWEqualMatcher.h>
 
 @interface TestMigration : CCNAbstractMigration
 @end
@@ -51,6 +52,12 @@ SPEC_BEGIN(AbstractMigrationTests)
 				TestMigration *migration = [[TestMigration alloc] init];
 				NSString *sql = [migration addColumn:@"birth" ofType:@"DATETIME NOT NULL DEFAULT '1/1/1970'" toTable:@"people"];
 				[[sql should] equal:@"ALTER TABLE people ADD COLUMN birth DATETIME NOT NULL DEFAULT '1/1/1970'"];
+			});
+
+			it(@"like delete table", ^{
+				TestMigration *migration = [[TestMigration alloc] init];
+				NSString *sql = [migration dropTable:@"People"];
+				[[sql should] equal:@"DROP TABLE IF EXISTS People"];
 			});
 
 		});

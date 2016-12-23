@@ -11,6 +11,7 @@
 
 - (NSString *)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)dictionary;
 - (NSString *)createTable:(NSString *)tableName withColumnsFromDictionary:(NSDictionary *)columns constraints:(NSDictionary *)constraints;
+- (NSString *)dropTable:(NSString *)tableName;
 - (NSString *)addColumn:(NSString *)name ofType:(NSString *)type toTable:(NSString *)table;
 - (NSString *)executeSQL:(NSString *)sqlString;
 
