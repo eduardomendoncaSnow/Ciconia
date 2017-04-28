@@ -44,45 +44,62 @@
 	return nil;
 }
 
-- (BOOL)checkForExecutions:(CIRDatabase *)database
+- (nullable NSNumber *)checkForExecutions:(nonnull CIRDatabase *)database error:(NSError *_Nullable *_Nullable)error
 {
-	return [self executionsCountForDatabase:database] > 0;
+	return @([[self executionsCountForDatabase:database error:error] intValue] > 0);
 }
 
-- (NSUInteger)executionsCountForDatabase:(CIRDatabase *)database
+- (nullable NSNumber *)executionsCountForDatabase:(nonnull CIRDatabase *)database error:(NSError *_Nullable *_Nullable)error
 {
-	[database executeUpdate:@"CREATE TABLE IF NOT EXISTS 'schema_migrations' ('version' INTEGER PRIMARY KEY)"];
+	if (![database executeUpdate:@"CREATE TABLE IF NOT EXISTS 'schema_migrations' ('version' INTEGER PRIMARY KEY)" error:error])
+		return nil;
 
 	NSUInteger count = 0;
 
-	CIRResultSet *resultSet = [database executeQuery:[NSString stringWithFormat:@"SELECT COUNT(version) FROM schema_migrations"]];
-	if ([resultSet next])
+	CIRResultSet *resultSet = [database executeQuery:[NSString stringWithFormat:@"SELECT COUNT(version) FROM schema_migrations"] error:nil];
+	if ([resultSet next:error])
 		count = (NSUInteger) [resultSet intAtIndex:0];
+	
+	if (*error)
+		return nil;
 
-	return  _migrations.count - count;
+	return @(_migrations.count - count);
 }
 
-- (void)execute:(CIRDatabase *)database
+- (BOOL)execute:(CIRDatabase *)database error:(NSError *_Nullable *_Nullable)error
 {
-	[self execute:database progress:nil];
+	return [self execute:database progress:nil error:error];
 }
 
-- (void)execute:(CIRDatabase *)database progress:(void (^)(CCNAbstractMigration *, int, int))progress;
+- (BOOL)execute:(CIRDatabase *)database progress:(void (^)(CCNAbstractMigration *, uint64_t, uint64_t))progress error:(NSError *_Nullable *_Nullable)error;
 {
-	NSUInteger executionsCount = [self executionsCountForDatabase:database];
+	NSUInteger executionsCount = [[self executionsCountForDatabase:database error:error] intValue];
+	
+	if (executionsCount == -1)
+		return NO;
 
-	[database executeUpdate:@"BEGIN"];
+	if (![database executeUpdate:@"BEGIN" error:error])
+		return NO;
 
-	CIRResultSet *resultSet = [database executeQuery:@"SELECT version FROM schema_migrations"];
+	CIRResultSet *resultSet = [database executeQuery:@"SELECT version FROM schema_migrations" error:error];
+	
+	if (*error)
+		return NO;
 
-	NSUInteger index = 0;
+	uint64_t index = 0;
 
-	while ([resultSet next])
+	while ([resultSet next:error])
 		[_migrations removeObjectForKey:resultSet[0]];
+	
+	if (*error)
+		return NO;
 
 	if ([_migrations count] > 0)
 	{
-		CIRStatement *statement = [database prepareStatement:@"INSERT INTO schema_migrations (version) VALUES (?)"];
+		CIRStatement *statement = [database prepareStatement:@"INSERT INTO schema_migrations (version) VALUES (?)" error:error];
+		
+		if (*error)
+			return NO;
 
 		for (NSNumber *key in [[_migrations allKeys] sortedArrayUsingComparator:^(id obj1, id obj2) {
 			return [obj1 compare:obj2];
@@ -90,6 +107,7 @@
 		{
 			CCNAbstractMigration *migration = (CCNAbstractMigration *) [[_migrations[key] alloc] init];
 			migration.database = database;
+			migration.name = NSStringFromClass(migration.class);
 
 			[migration run];
 
@@ -97,17 +115,36 @@
 				progress(migration, ++index, executionsCount);
 
 			[statement bindLongLong:[key longLongValue] atIndex:1];
+			
+			int rc = [statement step];
 
-			if ([statement step] != SQLITE_DONE)
-				@throw [NSException exceptionWithName:@"Migration Versioning Exception" reason:[database lastErrorMessage] userInfo:nil];
+			if (rc != SQLITE_DONE)
+			{
+				if (error)
+				{
+					*error = [NSError errorWithDomain:@"copyisright.ciconia"
+												 code:rc
+											 userInfo:@{NSLocalizedDescriptionKey : [database lastErrorMessage]}];
+				}
+			}
 
-			[statement reset];
+			rc = [statement reset];
+			if (rc != SQLITE_OK)
+			{
+				if (error)
+				{
+					*error = [NSError errorWithDomain:@"copyisright.ciconia"
+												 code:rc
+											 userInfo:@{NSLocalizedDescriptionKey : [database lastErrorMessage]}];
+				}
+			}
 		}
 
-		[statement close];
+		[statement close:error];
+			
 	}
 
-	[database executeUpdate:@"COMMIT"];
+	return [database executeUpdate:@"COMMIT" error:error];
 }
 
 - (void)registerMigrationClass:(Class)migrationClass withVersion:(long long)version

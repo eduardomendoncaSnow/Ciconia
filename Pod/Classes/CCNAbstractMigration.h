@@ -12,7 +12,8 @@
 
 @interface CCNAbstractMigration : NSObject
 
-@property (strong, nonatomic) CIRDatabase *database;
+@property (strong, nonatomic, nonnull) NSString *name;
+@property (strong, nonatomic, nonnull) CIRDatabase *database;
 
 - (void)run;
 

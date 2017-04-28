@@ -60,7 +60,7 @@
 
 - (NSString *)executeSQL:(NSString *)sqlString
 {
-	[self.database executeUpdate:sqlString];
+	[self.database executeUpdate:sqlString error:nil];
 	return sqlString;
 }
 
