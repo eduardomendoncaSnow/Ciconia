@@ -56,11 +56,11 @@
 
 	NSUInteger count = 0;
 
-	CIRResultSet *resultSet = [database executeQuery:[NSString stringWithFormat:@"SELECT COUNT(version) FROM schema_migrations"] error:nil];
+	CIRResultSet *resultSet = [database executeQuery:[NSString stringWithFormat:@"SELECT COUNT(version) FROM schema_migrations"] error:error];
 	if ([resultSet next:error])
 		count = (NSUInteger) [resultSet intAtIndex:0];
 	
-	if (*error)
+	if (error != NULL && *error)
 		return nil;
 
 	return @(_migrations.count - count);
@@ -73,7 +73,7 @@
 
 - (BOOL)execute:(CIRDatabase *)database progress:(void (^)(CCNAbstractMigration *, uint64_t, uint64_t))progress error:(NSError *_Nullable *_Nullable)error;
 {
-	NSUInteger executionsCount = [[self executionsCountForDatabase:database error:error] intValue];
+	NSInteger executionsCount = [[self executionsCountForDatabase:database error:error] integerValue];
 	
 	if (executionsCount == -1)
 		return NO;
@@ -82,23 +82,23 @@
 		return NO;
 
 	CIRResultSet *resultSet = [database executeQuery:@"SELECT version FROM schema_migrations" error:error];
-	
-	if (*error)
+
+	if (error != NULL && *error)
 		return NO;
 
 	uint64_t index = 0;
 
 	while ([resultSet next:error])
 		[_migrations removeObjectForKey:resultSet[0]];
-	
-	if (*error)
+
+	if (error != NULL && *error)
 		return NO;
 
 	if ([_migrations count] > 0)
 	{
 		CIRStatement *statement = [database prepareStatement:@"INSERT INTO schema_migrations (version) VALUES (?)" error:error];
-		
-		if (*error)
+
+		if (error != NULL && *error)
 			return NO;
 
 		for (NSNumber *key in [[_migrations allKeys] sortedArrayUsingComparator:^(id obj1, id obj2) {
@@ -112,7 +112,7 @@
 			[migration run];
 
 			if (progress)
-				progress(migration, ++index, executionsCount);
+				progress(migration, ++index, (uint64_t) executionsCount);
 
 			[statement bindLongLong:[key longLongValue] atIndex:1];
 			
@@ -120,7 +120,7 @@
 
 			if (rc != SQLITE_DONE)
 			{
-				if (error)
+				if (error != NULL)
 				{
 					*error = [NSError errorWithDomain:@"copyisright.ciconia"
 												 code:rc
@@ -131,7 +131,7 @@
 			rc = [statement reset];
 			if (rc != SQLITE_OK)
 			{
-				if (error)
+				if (error != NULL)
 				{
 					*error = [NSError errorWithDomain:@"copyisright.ciconia"
 												 code:rc
