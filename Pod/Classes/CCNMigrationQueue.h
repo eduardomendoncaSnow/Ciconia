@@ -13,16 +13,16 @@
 
 @interface CCNMigrationQueue : NSObject
 
-+ (instancetype)sharedQueue;
++ (nonnull instancetype)sharedQueue;
 
-- (BOOL)checkForExecutions:(CIRDatabase *)database;
+- (nullable NSNumber *)checkForExecutions:(nonnull CIRDatabase *)database error:(NSError *_Nullable *_Nullable)error;
 
-- (NSUInteger)executionsCountForDatabase:(CIRDatabase *)database;
+- (nullable NSNumber *)executionsCountForDatabase:(nonnull CIRDatabase *)database error:(NSError *_Nullable *_Nullable)error;
 
-- (void)execute:(CIRDatabase *)database;
+- (BOOL)execute:(nonnull CIRDatabase *)database error:(NSError *_Nullable *_Nullable)error;
 
-- (void)execute:(CIRDatabase *)database progress:(void (^)(CCNAbstractMigration *, int, int))progress;
+- (BOOL)execute:(nonnull CIRDatabase *)database progress:(void (^__nullable)(CCNAbstractMigration * __nonnull, uint64_t, uint64_t))progress error:(NSError *_Nullable *_Nullable)error;
 
-- (void)registerMigrationClass:(Class)migrationClass withVersion:(long long)version;
+- (void)registerMigrationClass:(nonnull Class)migrationClass withVersion:(long long)version;
 
 @end
