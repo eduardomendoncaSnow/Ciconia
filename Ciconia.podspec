@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'Pod/Classes/**/*'
   
-  s.dependency 'SQLAid', '~> 0.2'
+  s.dependency 'SQLAids', '0.2.1'
 end
