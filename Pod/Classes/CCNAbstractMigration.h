@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <SQLAid/CIRDatabase.h>
+#import <SQLAids/CIRDatabase.h>
 #import "CCNMigrationQueue.h"
 
 @interface CCNAbstractMigration : NSObject
